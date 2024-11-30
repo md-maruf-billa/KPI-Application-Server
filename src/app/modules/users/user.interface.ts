@@ -8,6 +8,6 @@ export type TUser = {
   role: 'student' | 'teacher' | 'admin';
   status: 'active' | 'blocked';
   isDeleted: boolean;
-  createdAt?: Date;
+  ccreatedAt?: Date ;
   updatedAt?: Date;
 };

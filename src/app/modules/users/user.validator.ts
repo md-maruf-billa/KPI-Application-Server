@@ -8,6 +8,4 @@ export const userValidationSchema = z.object({
   role: z.enum(['student', 'teacher', 'admin']),
   status: z.enum(['active', 'blocked']).default('active'),
   isDeleted: z.boolean().default(false),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
 });

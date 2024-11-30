@@ -8,7 +8,7 @@ export const studentSchema = new Schema<TStudent>({
     type: String,
     enum: ['Male', 'Female', 'Other'],
   },
-  dateOfBirth: Date,
+  dateOfBirth: Schema.Types.Date,
   email: String,
   contactNo: String,
   address: String,
@@ -30,11 +30,11 @@ export const studentSchema = new Schema<TStudent>({
   },
   isDeleted: Boolean,
   createdAt: {
-    type: Date,
+    type: Schema.Types.Date,
     required: false,
   },
   updatedAt: {
-    type: Date,
+    type: Schema.Types.Date,
     required: false,
   },
 });

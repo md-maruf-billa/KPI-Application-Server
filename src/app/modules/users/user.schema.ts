@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Date } from 'mongoose';
 import { TUser } from './user.interface';
 
 // define a TUserSchema
@@ -19,15 +19,10 @@ export const userSchema = new Schema<TUser>({
     type: Boolean,
     default: false,
   },
-  createdAt: {
-    type: Date,
-    required: false,
-  },
-  updatedAt: {
-    type: Date,
-    required: false,
-  },
+}, {
+  timestamps: true,
+  versionKey: false
 });
 
 // define a model
-export const userModel = model('userModel', userSchema);
+export const userModel = model('user', userSchema);
