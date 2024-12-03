@@ -7,8 +7,11 @@ import { createSemesterValidationSchema } from "./semester.validator";
 const semesterRoute = Router();
 
 // create semester
-semesterRoute.post("/", validetSenderInfo(createSemesterValidationSchema), semesterController.createSemester)
-
+semesterRoute.post("/", validetSenderInfo(createSemesterValidationSchema), semesterController.createSemester);
+// get all semester
+semesterRoute.get("/", semesterController.getAllSemester)
+// get specifice semester
+semesterRoute.get("/:semesterId", semesterController.getSpecificeSemester)
 
 
 

@@ -11,8 +11,20 @@ const createSemesterIntoDB = async (payload: TSemester) => {
     const result = await SemesterModel.create(payload);
     return result;
 }
+// get all semester form db
+const getAllSemesterFromDB = async () => {
+    const result = await SemesterModel.find().lean();
+    return result;
+}
 
+//get specifice semester
+const getSpecificeSemesterFromDB = async (semesterId: string) => {
+    const result = await SemesterModel.findById(semesterId).lean();
+    return result
+}
 
 export const semesterServices = {
-    createSemesterIntoDB
+    createSemesterIntoDB,
+    getAllSemesterFromDB,
+    getSpecificeSemesterFromDB
 }

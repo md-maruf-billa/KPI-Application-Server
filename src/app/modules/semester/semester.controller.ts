@@ -9,7 +9,27 @@ const createSemester = catchAsync(async (req, res) => {
         data: result
     })
 })
+// get all semster
+const getAllSemester = catchAsync(async (req, res) => {
+    const result = await semesterServices.getAllSemesterFromDB();
+    manageResponse(res, {
+        message: "Semester data collected!!",
+        data: result
+    })
+})
+
+// get specifice semesteer
+const getSpecificeSemester = catchAsync(async (req, res) => {
+    const semesterId: string = req.params.semesterId;
+    const result = await semesterServices.getSpecificeSemesterFromDB(semesterId);
+    manageResponse(res, {
+        message: "Semester data collected!!",
+        data: result
+    })
+})
 
 export const semesterController = {
-    createSemester
+    createSemester,
+    getAllSemester,
+    getSpecificeSemester
 }
