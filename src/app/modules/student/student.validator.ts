@@ -18,5 +18,5 @@ export const studentValidationSchema = z.object({
   address: z.string(),
   guardiant: guardiantVaidationSchema,
   profileImage: z.string().optional(),
-  admissionSemester: z.enum(['1', '2', '3', '4', '5', '6', '7', '8']),
+  admissionSemester: z.string(),
 });

@@ -7,6 +7,7 @@ export const SemesterSchema = new Schema<TSemester>({
         type: String,
         enum: semesterName,
     },
+    year: String,
     code: {
         type: String,
         enum: semesterCode,
@@ -29,6 +30,13 @@ export const SemesterSchema = new Schema<TSemester>({
     versionKey: false
 });
 
-
+// middle ware
+SemesterSchema.pre("save", async function (next) {
+    const isExist = await SemesterModel.findOne({ year: this.year, semesterName: this.semesterName });
+    if (isExist) {
+        throw new Error("Semester Already exist")
+    }
+    next()
+})
 // create model
 export const SemesterModel = model("semester", SemesterSchema)

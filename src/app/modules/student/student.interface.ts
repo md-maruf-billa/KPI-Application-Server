@@ -15,6 +15,6 @@ export type TStudent = {
   address: string;
   guardiant: TGuardiant;
   profileImage?: string;
-  admissionSemester: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
+  admissionSemester: string;
   isDeleted?: boolean;
 };

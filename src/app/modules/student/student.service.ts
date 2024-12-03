@@ -1,3 +1,4 @@
+import { SemesterModel } from '../semester/semester.model';
 import { TUser } from '../users/user.interface';
 import { TStudent } from './student.interface';
 
@@ -9,4 +10,12 @@ const createStudentInoDB = async (payload: TStudent) => {
   userData.password = 'student123';
   // set role
   userData.role = 'student';
+  // find academic semester info
+  const academicSemesterInfo = await SemesterModel.findById(payload.admissionSemester).lean();
+  console.log(academicSemesterInfo)
 };
+
+
+export const studentService = {
+  createStudentInoDB
+}
