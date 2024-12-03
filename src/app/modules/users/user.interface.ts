@@ -6,8 +6,6 @@ export type TUser = {
   password: string;
   neededPasswordChange: boolean;
   role: 'student' | 'teacher' | 'admin';
-  status: 'active' | 'blocked';
-  isDeleted: boolean;
-  ccreatedAt?: Date ;
-  updatedAt?: Date;
+  status?: 'active' | 'blocked';
+  isDeleted?: boolean;
 };

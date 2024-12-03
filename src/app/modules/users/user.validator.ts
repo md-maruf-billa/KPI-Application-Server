@@ -6,6 +6,5 @@ export const userValidationSchema = z.object({
   password: z.string(),
   neededPasswordChange: z.boolean(),
   role: z.enum(['student', 'teacher', 'admin']),
-  status: z.enum(['active', 'blocked']).default('active'),
   isDeleted: z.boolean().default(false),
 });

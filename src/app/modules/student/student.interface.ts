@@ -1,5 +1,3 @@
-import { Date } from 'mongoose';
-
 // type of guardian
 type TGuardiant = {
   name: string;
@@ -11,14 +9,12 @@ export type TStudent = {
   id: string;
   name: string;
   gender: 'Male' | 'Female' | 'Other';
-  dateOfBirth: Date;
+  dateOfBirth: string;
   email: string;
   contactNo: string;
   address: string;
   guardiant: TGuardiant;
   profileImage?: string;
   admissionSemester: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
-  isDeleted: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
+  isDeleted?: boolean;
 };
