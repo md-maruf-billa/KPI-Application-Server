@@ -1,9 +1,12 @@
-import { Schema, model, Date } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { TUser } from './user.interface';
 
 // define a TUserSchema
 export const userSchema = new Schema<TUser>({
-  id: String,
+  id: {
+    type: String,
+    unique: true
+  },
   password: String,
   neededPasswordChange: Boolean,
   role: {
