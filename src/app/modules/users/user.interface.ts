@@ -1,8 +1,7 @@
-import { Date } from 'mongoose';
-
 // define a user type
 export type TUser = {
   id: string;
+  email: string;
   password: string;
   neededPasswordChange: boolean;
   role: 'student' | 'teacher' | 'admin';

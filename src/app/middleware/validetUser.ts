@@ -6,7 +6,7 @@ const validetSenderInfo = (schema: AnyZodObject) => {
     try {
       await schema.parseAsync(req.body);
     } catch (err) {
-      next(err);
+      return next(err);
     }
     return next();
   };

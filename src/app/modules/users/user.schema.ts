@@ -8,6 +8,10 @@ export const userSchema = new Schema<TUser>(
       type: String,
       unique: true,
     },
+    email: {
+      type: String,
+      unique: true,
+    },
     password: String,
     neededPasswordChange: Boolean,
     role: {
