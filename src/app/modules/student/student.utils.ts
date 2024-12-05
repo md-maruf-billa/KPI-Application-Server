@@ -14,9 +14,7 @@ const findLatestId = async (): Promise<string | null> => {
 export const generateStudentID = async (
   payload: TSemester,
 ): Promise<string> => {
-  // 2027 02 0000
   const lastID = await findLatestId();
-  console.log(lastID);
   const defaultID = '0';
   // Determine the next ID
   const incrementId = lastID

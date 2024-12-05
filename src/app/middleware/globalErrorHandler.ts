@@ -7,7 +7,7 @@ const globalErrorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  res.status(status.NOT_FOUND).json({
+  res.status(err.statusCode || status.NOT_FOUND).json({
     success: false,
     message: err?.message || 'Something went wrong!!',
     error: err,

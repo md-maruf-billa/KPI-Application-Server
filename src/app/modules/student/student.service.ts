@@ -1,3 +1,4 @@
+import AppError from '../../../errors/appError';
 import { TSemester } from '../semester/semester.interface';
 import { SemesterModel } from '../semester/semester.model';
 import { TUser } from '../users/user.interface';
@@ -5,6 +6,7 @@ import { userModel } from '../users/user.schema';
 import { TStudent } from './student.interface';
 import { studentModel } from './student.schema';
 import { generateStudentID } from './student.utils';
+import httpStatus from 'http-status';
 
 // create student into db
 const createStudentInoDB = async (payload: TStudent) => {
@@ -13,7 +15,7 @@ const createStudentInoDB = async (payload: TStudent) => {
     const academicSemesterInfo = await SemesterModel.findOne({
       _id: payload.admissionSemester,
     }).lean();
-    if (!academicSemesterInfo) throw new Error('Invalid semester!!');
+    if (!academicSemesterInfo) throw new AppError(httpStatus.NOT_FOUND, "Academic Semester not found");
     // step-1: create a user first
     const userData: Partial<TUser> = {};
     // set password
