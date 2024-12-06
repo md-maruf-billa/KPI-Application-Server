@@ -42,6 +42,13 @@ const createStudentInoDB = async (payload: TStudent) => {
   }
 };
 
+// get all student
+const getAllStudentsIntoDB = async () => {
+  const result = await studentModel.find().populate("admissionSemester");
+  return result;
+}
+
 export const studentService = {
   createStudentInoDB,
+  getAllStudentsIntoDB
 };

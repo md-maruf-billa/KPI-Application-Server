@@ -11,7 +11,13 @@ const createStudent = catchAsync(async (req, res) => {
   });
 });
 // create a student
-const getAllStudents = catchAsync(async (req, res) => {});
+const getAllStudents = catchAsync(async (req, res) => {
+  const result = await studentService.getAllStudentsIntoDB();
+  manageResponse(res, {
+    message: "All student data collected",
+    data: result
+  })
+});
 
 export const studentController = {
   createStudent,

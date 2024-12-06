@@ -18,6 +18,6 @@ export type TStudent = {
   address: string;
   guardian: TGuardian;
   profileImage?: string;
-  admissionSemester: string;
+  admissionSemester: Types.ObjectId;
   isDeleted?: boolean;
 };

@@ -20,7 +20,6 @@ export const generateStudentID = async (
   const incrementId = lastID
     ? (Number(lastID.substring(6)) + 1).toString().padStart(4, '0') // Increment if `lastID` exists
     : defaultID.padStart(4, '0'); // Start from default if `lastID` is null
-
   const studentID = `${payload.year}${payload.code}${incrementId}`;
   return studentID;
 };
