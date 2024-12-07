@@ -33,7 +33,7 @@ export const SemesterSchema = new Schema<TSemester>(
   },
 );
 
-// middle ware
+// check this semester already running
 SemesterSchema.pre('save', async function (next) {
   const isExist = await SemesterModel.findOne({
     year: this.year,
@@ -44,5 +44,12 @@ SemesterSchema.pre('save', async function (next) {
   }
   next();
 });
+// filter deleted semester and return active semester
+SemesterSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+
 // create model
 export const SemesterModel = model('semester', SemesterSchema);
