@@ -16,6 +16,8 @@ semesterRoute.post(
 semesterRoute.get('/', semesterController.getAllSemester);
 // get specifice semester
 semesterRoute.get('/:semesterId', semesterController.getSpecificeSemester);
+// deleter a semester
+semesterRoute.delete('/:semesterId', semesterController.deleteSemester);
 
 // export router
 export default semesterRoute;

@@ -27,9 +27,21 @@ const getSpecificeSemester = catchAsync(async (req, res) => {
     data: result,
   });
 });
+// delete a semester into db
+const deleteSemester = catchAsync(async (req, res) => {
+  const semesterId: string = req.params.semesterId;
+  const result = await semesterServices.deleteSemesterFromDB(semesterId);
+  manageResponse(res, {
+    message: 'Semester deleted successfully !!',
+    data: {
+
+    },
+  });
+});
 
 export const semesterController = {
   createSemester,
   getAllSemester,
   getSpecificeSemester,
+  deleteSemester
 };

@@ -16,15 +16,23 @@ const getAllSemesterFromDB = async () => {
   const result = await SemesterModel.find().lean();
   return result;
 };
-
 //get specifice semester
 const getSpecificeSemesterFromDB = async (semesterId: string) => {
   const result = await SemesterModel.findById(semesterId).lean();
   return result;
 };
 
+// delete a semester
+const deleteSemesterFromDB = async (semesterId: string) => {
+  const result = await SemesterModel.findByIdAndUpdate(semesterId, {
+    isDeleted: true
+  })
+  return result;
+}
+
 export const semesterServices = {
   createSemesterIntoDB,
   getAllSemesterFromDB,
   getSpecificeSemesterFromDB,
+  deleteSemesterFromDB
 };
