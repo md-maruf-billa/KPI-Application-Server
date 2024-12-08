@@ -33,9 +33,7 @@ const deleteSemester = catchAsync(async (req, res) => {
   const result = await semesterServices.deleteSemesterFromDB(semesterId);
   manageResponse(res, {
     message: 'Semester deleted successfully !!',
-    data: {
-
-    },
+    data: {},
   });
 });
 
@@ -43,5 +41,5 @@ export const semesterController = {
   createSemester,
   getAllSemester,
   getSpecificeSemester,
-  deleteSemester
+  deleteSemester,
 };

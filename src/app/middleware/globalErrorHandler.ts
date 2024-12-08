@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ZodError } from "zod";
+import { ZodError } from 'zod';
 import zodErrorHandler from '../../errors/zodErrorHandler';
 import serverConfig from '../config';
 import mongooseErrorHandler from '../../errors/mongooseErrorHandler';
@@ -12,14 +12,14 @@ const globalErrorHandler = (
 ) => {
   // pre defiend valriable
   let statusCode = 500;
-  let message = "Something went wrong!!"
+  let message = 'Something went wrong!!';
   let errorSources = [
     {
-      message: "",
-      path: ""
-    }
+      message: '',
+      path: '',
+    },
   ];
-  const stack = serverConfig.env_mode === "development" ? err.stack : null
+  const stack = serverConfig.env_mode === 'development' ? err.stack : null;
 
   // check zod err
   if (err instanceof ZodError) {
@@ -27,44 +27,38 @@ const globalErrorHandler = (
     statusCode = zodErr.statusCode;
     message = zodErr.message;
     errorSources = zodErr.errorSources;
-
   }
   // check mongoose error
-  else if (err.name === "ValidationError") {
+  else if (err.name === 'ValidationError') {
     const zodErr = mongooseErrorHandler(err);
     statusCode = zodErr.statusCode;
     message = zodErr.message;
     errorSources = zodErr.errorSources;
-
-  }
-  else if (err instanceof AppError) {
+  } else if (err instanceof AppError) {
     statusCode = err.statusCode;
     message = err.message;
     errorSources = [
       {
         message: err.message,
-        path: "",
-      }
+        path: '',
+      },
     ];
-  }
-  else if (err instanceof Error) {
+  } else if (err instanceof Error) {
     message = err.message;
     errorSources = [
       {
         message: err.message,
-        path: "",
-      }
+        path: '',
+      },
     ];
   }
-
-
 
   // send error res
   res.status(statusCode).json({
     success: false,
     message,
     errorSources,
-    stack
+    stack,
   });
 };
 

@@ -50,6 +50,5 @@ SemesterSchema.pre('find', function (next) {
   next();
 });
 
-
 // create model
 export const SemesterModel = model('semester', SemesterSchema);

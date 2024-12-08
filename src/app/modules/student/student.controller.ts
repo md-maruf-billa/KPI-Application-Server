@@ -14,9 +14,9 @@ const createStudent = catchAsync(async (req, res) => {
 const getAllStudents = catchAsync(async (req, res) => {
   const result = await studentService.getAllStudentsIntoDB(req.query);
   manageResponse(res, {
-    message: "All student data collected",
-    data: result
-  })
+    message: 'All student data collected',
+    data: result,
+  });
 });
 
 export const studentController = {

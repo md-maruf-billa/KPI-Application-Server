@@ -1,8 +1,8 @@
 export type TErrorRes = {
-    statusCode: number;
+  statusCode: number;
+  message: string;
+  errorSources: {
     message: string;
-    errorSources: {
-        message: string ,
-        path: string,
-    }[];
-}
+    path: string;
+  }[];
+};

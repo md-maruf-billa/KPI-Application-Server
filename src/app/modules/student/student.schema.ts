@@ -63,7 +63,7 @@ export const studentSchema = new Schema<TStudent>(
     },
     admissionSemester: {
       type: Schema.Types.ObjectId,
-      ref: "semester",
+      ref: 'semester',
       required: true,
     },
     isDeleted: {
@@ -79,17 +79,18 @@ export const studentSchema = new Schema<TStudent>(
 );
 
 // check this student already exist in the user database
-studentSchema.pre("save", async function (next) {
+studentSchema.pre('save', async function (next) {
   const isExist = await studentModel.findOne({ email: this.email });
 
   // chek this user
   if (isExist) {
-    throw new AppError(httpStatus.FORBIDDEN, "This student already registred!!")
+    throw new AppError(
+      httpStatus.FORBIDDEN,
+      'This student already registred!!',
+    );
   }
-  next()
-})
-
-
+  next();
+});
 
 // Create a model for students
 export const studentModel = model<TStudent>('Student', studentSchema);

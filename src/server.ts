@@ -18,21 +18,23 @@ async function main() {
 }
 main();
 
-
 // unhandle error
-process.on("unhandledRejection", () => {
-  console.log("Maybe have any error in this server!! shutting down server⚠️⚠️⚠️")
+process.on('unhandledRejection', () => {
+  console.log(
+    'Maybe have any error in this server!! shutting down server⚠️⚠️⚠️',
+  );
   if (server) {
     server.close(() => {
       process.exit(1);
-    })
+    });
   }
   process.exit(1);
-})
+});
 
 // uncaugth err
-process.on("uncaughtException", () => {
-  console.log("Maybe have any error in this server!! shutting down server⚠️⚠️⚠️");
+process.on('uncaughtException', () => {
+  console.log(
+    'Maybe have any error in this server!! shutting down server⚠️⚠️⚠️',
+  );
   process.exit(1);
-})
-
+});

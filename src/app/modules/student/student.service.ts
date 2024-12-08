@@ -1,4 +1,5 @@
 import AppError from '../../../errors/appError';
+import QueryBuilder from '../../build/queryBuilder';
 import { TSemester } from '../semester/semester.interface';
 import { SemesterModel } from '../semester/semester.model';
 import { TUser } from '../users/user.interface';
@@ -15,7 +16,8 @@ const createStudentInoDB = async (payload: TStudent) => {
     const academicSemesterInfo = await SemesterModel.findOne({
       _id: payload.admissionSemester,
     }).lean();
-    if (!academicSemesterInfo) throw new AppError(httpStatus.NOT_FOUND, "Academic Semester not found");
+    if (!academicSemesterInfo)
+      throw new AppError(httpStatus.NOT_FOUND, 'Academic Semester not found');
     // step-1: create a user first
     const userData: Partial<TUser> = {};
     // set password
@@ -44,36 +46,18 @@ const createStudentInoDB = async (payload: TStudent) => {
 
 // get all student
 const getAllStudentsIntoDB = async (query: Record<string, unknown>) => {
-  // coppy the query
-  const filteringQuery = { ...query };
-  const exludeFields = ["searchTerm", 'sort', "limit", "page"];
-  exludeFields.map(fld => delete filteringQuery[fld]);
-  const searchTerm = query?.searchTerm || "";
-  const sort = query?.sort || "createdAt";
-  const dataLimit = query?.limit || 1;
-  const page = query?.page || 1;
-  // for searching
-  const searchQueryData = studentModel.find(
-    {
-      $or: ["name", "email", "address", "guardian.name"].map(filed => ({
-        [filed]: { $regex: searchTerm, $options: 'i' }
-      }))
-    }
-  )
-  // for filtering
-  const filteringQueryData = searchQueryData.find(filteringQuery).populate("admissionSemester");
-
-  // for sorting query
-  const sortingQueryData = filteringQueryData.sort(sort as string);
-  // for pageination
-  const pageinationQueryData = sortingQueryData.skip(Number(page) - 1 * Number(dataLimit))
-  // for limiting
-  const limitingQueryData = await pageinationQueryData.limit(Number(dataLimit))
-  return limitingQueryData;
-}
+  // searching field
+  const searchableFields = ['name', 'email', 'address', 'guardian.name'];
+  const studentQuery = new QueryBuilder(query, studentModel.find())
+    .search(searchableFields)
+    .filter()
+    .sort()
+    .pagination()
+    .fieldsLimiting();
+  const result = await studentQuery.queryModel;
+  return result;
+};
 export const studentService = {
   createStudentInoDB,
-  getAllStudentsIntoDB
+  getAllStudentsIntoDB,
 };
-
-

@@ -1,9 +1,6 @@
-const createFacultyInoDB = async () => {
-
-}
-
+const createFacultyInoDB = async () => {};
 
 // eport all functions
 export const facultyServices = {
-    createFacultyInoDB,
-}
+  createFacultyInoDB,
+};

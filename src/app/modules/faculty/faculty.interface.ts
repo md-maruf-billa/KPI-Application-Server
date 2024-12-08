@@ -1,3 +1,3 @@
 export type TFaculty = {
-    name: string;
-}
+  name: string;
+};

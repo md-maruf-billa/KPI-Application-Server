@@ -25,14 +25,14 @@ const getSpecificeSemesterFromDB = async (semesterId: string) => {
 // delete a semester
 const deleteSemesterFromDB = async (semesterId: string) => {
   const result = await SemesterModel.findByIdAndUpdate(semesterId, {
-    isDeleted: true
-  })
+    isDeleted: true,
+  });
   return result;
-}
+};
 
 export const semesterServices = {
   createSemesterIntoDB,
   getAllSemesterFromDB,
   getSpecificeSemesterFromDB,
-  deleteSemesterFromDB
+  deleteSemesterFromDB,
 };

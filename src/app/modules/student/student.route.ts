@@ -13,7 +13,7 @@ studentRoute.post(
 );
 
 // get all student form DB
-studentRoute.get("/",studentController.getAllStudents)
+studentRoute.get('/', studentController.getAllStudents);
 
 // export this router
 export default studentRoute;

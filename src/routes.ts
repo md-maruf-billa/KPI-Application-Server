@@ -20,9 +20,9 @@ const allRoute = [
     route: semesterRoute,
   },
   {
-    path: "/faculty",
-    route: facultyRoute
-  }
+    path: '/faculty',
+    route: facultyRoute,
+  },
 ];
 
 // dynamically create route
