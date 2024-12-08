@@ -44,14 +44,19 @@ const createStudentInoDB = async (payload: TStudent) => {
 
 // get all student
 const getAllStudentsIntoDB = async (query: Record<string, unknown>) => {
+  // coppy the query
+  const filteringQuery = { ...query };
   const searchTerm = query?.searchTerm || "";
-  const result = await studentModel.find(
+  const searchQuery = studentModel.find(
     {
       $or: ["name", "email", "address", "guardian.name"].map(filed => ({
         [filed]: { $regex: searchTerm, $options: 'i' }
       }))
     }
-  ).populate("admissionSemester");
+  )
+  const exludeFields = ["searchTerm"];
+  exludeFields.map(fld => delete filteringQuery[fld]);
+  const result = await searchQuery.find(filteringQuery).populate("admissionSemester");
   return result;
 }
 
