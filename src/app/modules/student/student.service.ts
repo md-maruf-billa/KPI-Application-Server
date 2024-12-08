@@ -43,8 +43,15 @@ const createStudentInoDB = async (payload: TStudent) => {
 };
 
 // get all student
-const getAllStudentsIntoDB = async () => {
-  const result = await studentModel.find().populate("admissionSemester");
+const getAllStudentsIntoDB = async (query: Record<string, unknown>) => {
+  const searchTerm = query?.searchTerm || "";
+  const result = await studentModel.find(
+    {
+      $or: ["name", "email", "address", "guardian.name"].map(filed => ({
+        [filed]: { $regex: searchTerm, $options: 'i' }
+      }))
+    }
+  ).populate("admissionSemester");
   return result;
 }
 

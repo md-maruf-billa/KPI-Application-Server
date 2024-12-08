@@ -5,7 +5,6 @@ import globalErrorHandler from './app/middleware/globalErrorHandler';
 import manageResponse from './app/utils/response';
 import moduleRoutes from './routes';
 const app = express();
-
 //middleware
 app.use(express.json());
 app.use(express.raw());

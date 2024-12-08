@@ -12,7 +12,7 @@ const createStudent = catchAsync(async (req, res) => {
 });
 // create a student
 const getAllStudents = catchAsync(async (req, res) => {
-  const result = await studentService.getAllStudentsIntoDB();
+  const result = await studentService.getAllStudentsIntoDB(req.query);
   manageResponse(res, {
     message: "All student data collected",
     data: result

@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { ZodError } from "zod";
 import zodErrorHandler from '../../errors/zodErrorHandler';
 import serverConfig from '../config';
+import mongooseErrorHandler from '../../errors/mongooseErrorHandler';
+import AppError from '../../errors/appError';
 const globalErrorHandler = (
   err: any,
   req: Request,
@@ -19,9 +21,6 @@ const globalErrorHandler = (
   ];
   const stack = serverConfig.env_mode === "development" ? err.stack : null
 
-
-
-
   // check zod err
   if (err instanceof ZodError) {
     const zodErr = zodErrorHandler(err);
@@ -30,6 +29,34 @@ const globalErrorHandler = (
     errorSources = zodErr.errorSources;
 
   }
+  // check mongoose error
+  else if (err.name === "ValidationError") {
+    const zodErr = mongooseErrorHandler(err);
+    statusCode = zodErr.statusCode;
+    message = zodErr.message;
+    errorSources = zodErr.errorSources;
+
+  }
+  else if (err instanceof AppError) {
+    statusCode = err.statusCode;
+    message = err.message;
+    errorSources = [
+      {
+        message: err.message,
+        path: "",
+      }
+    ];
+  }
+  else if (err instanceof Error) {
+    message = err.message;
+    errorSources = [
+      {
+        message: err.message,
+        path: "",
+      }
+    ];
+  }
+
 
 
   // send error res
