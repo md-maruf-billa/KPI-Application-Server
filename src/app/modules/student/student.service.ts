@@ -46,11 +46,12 @@ const createStudentInoDB = async (payload: TStudent) => {
 const getAllStudentsIntoDB = async (query: Record<string, unknown>) => {
   // coppy the query
   const filteringQuery = { ...query };
-  const exludeFields = ["searchTerm", 'sort', "limit"];
+  const exludeFields = ["searchTerm", 'sort', "limit", "page"];
   exludeFields.map(fld => delete filteringQuery[fld]);
   const searchTerm = query?.searchTerm || "";
-  const sort = query.sort || "createdAt";
-  const dataLimit = query.limit || 1;
+  const sort = query?.sort || "createdAt";
+  const dataLimit = query?.limit || 1;
+  const page = query?.page || 1;
   // for searching
   const searchQueryData = studentModel.find(
     {
@@ -64,8 +65,10 @@ const getAllStudentsIntoDB = async (query: Record<string, unknown>) => {
 
   // for sorting query
   const sortingQueryData = filteringQueryData.sort(sort as string);
+  // for pageination
+  const pageinationQueryData = sortingQueryData.skip(Number(page) - 1 * Number(dataLimit))
   // for limiting
-  const limitingQueryData = await sortingQueryData.limit(dataLimit as number)
+  const limitingQueryData = await pageinationQueryData.limit(Number(dataLimit))
   return limitingQueryData;
 }
 export const studentService = {
