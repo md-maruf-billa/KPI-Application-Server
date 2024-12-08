@@ -46,13 +46,11 @@ const createStudentInoDB = async (payload: TStudent) => {
 const getAllStudentsIntoDB = async (query: Record<string, unknown>) => {
   // coppy the query
   const filteringQuery = { ...query };
-  const exludeFields = ["searchTerm", 'sort'];
+  const exludeFields = ["searchTerm", 'sort', "limit"];
   exludeFields.map(fld => delete filteringQuery[fld]);
   const searchTerm = query?.searchTerm || "";
-  let sort = query.sort;
-  if (query.sort) {
-    sort = query.sort;
-  }
+  const sort = query.sort || "createdAt";
+  const dataLimit = query.limit || 1;
   // for searching
   const searchQueryData = studentModel.find(
     {
@@ -65,8 +63,10 @@ const getAllStudentsIntoDB = async (query: Record<string, unknown>) => {
   const filteringQueryData = searchQueryData.find(filteringQuery).populate("admissionSemester");
 
   // for sorting query
-  const sortingQuery = await filteringQueryData.sort(sort as string);
-  return sortingQuery;
+  const sortingQueryData = filteringQueryData.sort(sort as string);
+  // for limiting
+  const limitingQueryData = await sortingQueryData.limit(dataLimit as number)
+  return limitingQueryData;
 }
 export const studentService = {
   createStudentInoDB,
