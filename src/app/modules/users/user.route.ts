@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { userController } from './user.controller';
-import validetSenderInfo from '../../middleware/validetUser';
+import checkValidationSchema from '../../middleware/validetUser';
 import { userValidationSchema } from './user.validator';
 
 // create a route
@@ -8,7 +8,7 @@ const userRoute = Router();
 // create a user
 userRoute.post(
   '/',
-  validetSenderInfo(userValidationSchema),
+  checkValidationSchema(userValidationSchema),
   userController.createUser,
 );
 // get all user

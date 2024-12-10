@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { semesterController } from './semester.controller';
-import validetSenderInfo from '../../middleware/validetUser';
+import checkValidationSchema from '../../middleware/validetUser';
 import { createSemesterValidationSchema } from './semester.validator';
 
 // semester route
@@ -9,7 +9,7 @@ const semesterRoute = Router();
 // create semester
 semesterRoute.post(
   '/',
-  validetSenderInfo(createSemesterValidationSchema),
+  checkValidationSchema(createSemesterValidationSchema),
   semesterController.createSemester,
 );
 // get all semester

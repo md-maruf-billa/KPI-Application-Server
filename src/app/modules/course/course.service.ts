@@ -1,6 +1,7 @@
+import QueryBuilder from "../../build/queryBuilder";
 import { TCourse } from "./course.interface"
 import { couresModel } from "./course.schema"
-
+const searchableFields = ["title", "prefix", "code"]
 
 //create 
 const createCourseIntoDb = async (payload: TCourse) => {
@@ -9,14 +10,20 @@ const createCourseIntoDb = async (payload: TCourse) => {
 }
 
 // get all
-const getAllCourseIntoDb = async () => {
-    const result = await couresModel.find();
+const getAllCourseIntoDb = async (query: Record<string, unknown>) => {
+    const courseQuery = new QueryBuilder(query, couresModel.find().populate("preRequisitCoureses.course"))
+        .search(searchableFields)
+        .filter()
+        .sort()
+        .pagination()
+        .fieldsLimiting()
+    const result = await courseQuery.queryModel;
     return result;
 }
 
 // get single
 const getSingleCourseIntoDb = async (id: string) => {
-    const result = await couresModel.findById(id);
+    const result = await couresModel.findById(id).populate("preRequisitCoureses.course");
     return result;
 }
 // delete coure

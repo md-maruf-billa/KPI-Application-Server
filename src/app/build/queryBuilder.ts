@@ -28,8 +28,7 @@ class QueryBuilder<T> {
     const exludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
     exludeFields.map((fld) => delete filteringQuery[fld]);
     this.queryModel = this.queryModel
-      .find(filteringQuery)
-      .populate('admissionSemester');
+      .find(filteringQuery);
     return this;
   }
 
@@ -42,7 +41,7 @@ class QueryBuilder<T> {
 
   // define pagination
   pagination() {
-    const limit = Number(this?.query?.limit) || 1;
+    const limit = Number(this?.query?.limit) || 20;
     const page = Number(this?.query?.page) || 1;
     const skip = (page - 1) * limit;
     this.queryModel = this.queryModel.skip(skip).limit(limit);

@@ -1,3 +1,4 @@
+import courseRoute from './app/modules/course/course.route';
 import facultyRoute from './app/modules/faculty/faculty.route';
 import semesterRoute from './app/modules/semester/semester.route';
 import studentRoute from './app/modules/student/student.route';
@@ -23,6 +24,10 @@ const allRoute = [
     path: '/faculty',
     route: facultyRoute,
   },
+  {
+    path: "/course",
+    route: courseRoute
+  }
 ];
 
 // dynamically create route

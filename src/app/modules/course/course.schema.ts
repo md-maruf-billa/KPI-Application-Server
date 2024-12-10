@@ -2,13 +2,17 @@ import { Schema, model } from "mongoose";
 import { TCourse, TPrerequisitCoureses } from "./course.interface";
 
 export const preRequisitCourseSchema = new Schema<TPrerequisitCoureses>({
-    course: Schema.Types.ObjectId,
+    course: {
+        type: Schema.Types.ObjectId,
+        ref: "course",
+        required: false,
+    },
     isDeleted: {
         type: Boolean,
         required: false,
-        default: false
-    }
-})
+        default: false,
+    },
+});
 
 export const courseSchema = new Schema<TCourse>({
     title: {
@@ -27,9 +31,17 @@ export const courseSchema = new Schema<TCourse>({
         type: Number,
         required: true,
     },
-    preRequisitCoureses: preRequisitCourseSchema
-})
+    preRequisitCoureses: {
+        type: [preRequisitCourseSchema], // Changed to an array
+        required: false,
+        default: [], // Optional: Default to an empty array if not provided
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+        required: false,
+    }
+});
 
-
-// create model 
-export const couresModel = model("course", courseSchema)
+// Create model
+export const couresModel = model("course", courseSchema);

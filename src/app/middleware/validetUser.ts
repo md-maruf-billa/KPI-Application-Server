@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { AnyZodObject } from 'zod';
 
-const validetSenderInfo = (schema: AnyZodObject) => {
+const checkValidationSchema = (schema: AnyZodObject) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       await schema.parseAsync(req.body);
@@ -12,4 +12,4 @@ const validetSenderInfo = (schema: AnyZodObject) => {
   };
 };
 
-export default validetSenderInfo;
+export default checkValidationSchema;

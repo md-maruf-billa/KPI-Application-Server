@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { studentController } from './student.controller';
-import validetSenderInfo from '../../middleware/validetUser';
+import checkValidationSchema from '../../middleware/validetUser';
 import { studentValidationSchema } from './student.validator';
 
 const studentRoute = Router();
@@ -8,7 +8,7 @@ const studentRoute = Router();
 // create a stuent
 studentRoute.post(
   '/',
-  validetSenderInfo(studentValidationSchema),
+  checkValidationSchema(studentValidationSchema),
   studentController.createStudent,
 );
 

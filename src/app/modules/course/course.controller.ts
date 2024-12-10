@@ -13,7 +13,7 @@ const createCourse = catchAsync(async (req, res) => {
 
 // get all course
 const getAllCourse = catchAsync(async (req, res) => {
-    const result = await courseServices.getAllCourseIntoDb();
+    const result = await courseServices.getAllCourseIntoDb(req.query);
     manageResponse(res, {
         message: "Courese is retrieved successfully!",
         data: result
@@ -31,6 +31,10 @@ const getSingleCourse = catchAsync(async (req, res) => {
 // delete a course
 const deleteCourse = catchAsync(async (req, res) => {
     const result = await courseServices.deleteCourseFromDb(req?.params?.id);
+    manageResponse(res, {
+        message: "Course delete successfully",
+        data: {}
+    })
 })
 
 // export all
