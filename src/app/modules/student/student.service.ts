@@ -48,7 +48,10 @@ const createStudentInoDB = async (payload: TStudent) => {
 const getAllStudentsIntoDB = async (query: Record<string, unknown>) => {
   // searching field
   const searchableFields = ['name', 'email', 'address', 'guardian.name'];
-  const studentQuery = new QueryBuilder(query, studentModel.find().populate('admissionSemester'))
+  const studentQuery = new QueryBuilder(
+    query,
+    studentModel.find().populate('admissionSemester'),
+  )
     .search(searchableFields)
     .filter()
     .sort()

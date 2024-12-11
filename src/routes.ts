@@ -25,9 +25,9 @@ const allRoute = [
     route: facultyRoute,
   },
   {
-    path: "/course",
-    route: courseRoute
-  }
+    path: '/course',
+    route: courseRoute,
+  },
 ];
 
 // dynamically create route

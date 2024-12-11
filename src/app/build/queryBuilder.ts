@@ -27,8 +27,7 @@ class QueryBuilder<T> {
     const filteringQuery = { ...this.query };
     const exludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
     exludeFields.map((fld) => delete filteringQuery[fld]);
-    this.queryModel = this.queryModel
-      .find(filteringQuery);
+    this.queryModel = this.queryModel.find(filteringQuery);
     return this;
   }
 
