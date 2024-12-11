@@ -11,6 +11,8 @@ courseRoute.post("/", checkValidationSchema(courseValidation.createCourseValidat
 courseRoute.get("/", courseControllers.getAllCourse);
 // get single
 courseRoute.get('/:id', courseControllers.getSingleCourse);
+// update course
+courseRoute.patch("/:id",checkValidationSchema(courseValidation.updateCourseValidationSchema), courseControllers.updateCourse);
 //delete 
 courseRoute.delete("/:id", courseControllers.deleteCourse)
 

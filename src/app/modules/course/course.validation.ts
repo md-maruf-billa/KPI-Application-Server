@@ -12,8 +12,11 @@ const createCourseValidationSchema = z.object({
     preRequisitCoureses: z.array(preRequisitCourseSchemaValidation).optional()
 })
 
+// update validation schema
+const updateCourseValidationSchema = createCourseValidationSchema.partial()
 
 // export all
 export const courseValidation = {
-    createCourseValidationSchema
+    createCourseValidationSchema,
+    updateCourseValidationSchema
 }

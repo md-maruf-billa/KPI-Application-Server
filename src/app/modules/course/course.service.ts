@@ -8,7 +8,14 @@ const createCourseIntoDb = async (payload: TCourse) => {
     const result = await couresModel.create(payload);
     return result;
 }
-
+// update course
+const updateCourseIntoDb = async (id: string, payload: Partial<TCourse>) => {
+    //basic info
+    const { preRequisitCoureses, ...courseInfoRem } = payload;
+    // update 
+    const result = await couresModel.findByIdAndUpdate(id, courseInfoRem, { new: true });
+    return result
+}
 // get all
 const getAllCourseIntoDb = async (query: Record<string, unknown>) => {
     const courseQuery = new QueryBuilder(query, couresModel.find().populate("preRequisitCoureses.course"))
@@ -39,4 +46,5 @@ export const courseServices = {
     getAllCourseIntoDb,
     getSingleCourseIntoDb,
     deleteCourseFromDb,
+    updateCourseIntoDb
 }
