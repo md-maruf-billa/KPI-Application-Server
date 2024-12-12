@@ -12,3 +12,10 @@ export type TCourse = {
   preRequisitCoureses?: TPrerequisitCoureses[];
   isDeleted?: boolean;
 };
+
+
+// define teacher for this course
+export Type TTeacherFroCourse ={
+course:string;
+teachers:string[];
+}
