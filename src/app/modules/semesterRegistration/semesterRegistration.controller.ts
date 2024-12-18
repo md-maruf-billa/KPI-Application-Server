@@ -12,10 +12,19 @@ const createSemesterRegistration = catchAsync(async (req, res) => {
 })
 // get all
 const getAllSemesterRegistrations = catchAsync(async (req, res) => {
-
+    const result = await semesterRegistrationServices.getAllSemesterRegistrationFromDb(req?.query);
+    manageResponse(res, {
+        message: "Semester data retrived successfull!",
+        data: result
+    })
 })
 // get single
 const getSingleSemesterRegistration = catchAsync(async (req, res) => {
+    const result = await semesterRegistrationServices.getSingleSemesterRegistrationFromDb(req.params?.id);
+    manageResponse(res, {
+        message: "Register Semester retrived successfully",
+        data: result
+    })
 
 })
 
