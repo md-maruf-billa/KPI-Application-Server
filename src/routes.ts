@@ -1,5 +1,6 @@
 import courseRoute from './app/modules/course/course.route';
 import facultyRoute from './app/modules/faculty/faculty.route';
+import offeredCourseRoute from './app/modules/offeredCourse/offeredCourse.route';
 import semesterRoute from './app/modules/semester/semester.route';
 import semesterRegistrationRoute from './app/modules/semesterRegistration/semesterRegistration.route';
 import studentRoute from './app/modules/student/student.route';
@@ -32,6 +33,10 @@ const allRoute = [
   {
     path: '/semester-registrations',
     route: semesterRegistrationRoute,
+  },
+  {
+    path: '/offered-course',
+    route: offeredCourseRoute,
   },
 ];
 
