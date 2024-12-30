@@ -1,35 +1,37 @@
-import { Router } from 'express';
-import checkValidationSchema from '../../middleware/validetUser';
-import { semesterRegistrationValidations } from './semesterRegistration.validation';
-import { semesterRegistrationController } from './semesterRegistration.controller';
-const semesterRegistrationRoute = Router();
+import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
+import { SemesterRegistrationController } from './semesterRegistration.controller';
+import { SemesterRegistrationValidations } from './semesterRegistration.validation';
 
-// create registration
-semesterRegistrationRoute.post(
+const router = express.Router();
+
+router.post(
   '/',
-  checkValidationSchema(
-    semesterRegistrationValidations.createSemesterRegistrationValidation,
+  validateRequest(
+    SemesterRegistrationValidations.createSemesterRegistrationValidationSchema,
   ),
-  semesterRegistrationController.createSemesterRegistration,
-);
-// get all
-semesterRegistrationRoute.get(
-  '/',
-  semesterRegistrationController.getAllSemesterRegistrations,
-);
-//get single
-semesterRegistrationRoute.get(
-  '/:id',
-  semesterRegistrationController.getSingleSemesterRegistration,
-);
-// update
-semesterRegistrationRoute.patch(
-  '/:id',
-  checkValidationSchema(
-    semesterRegistrationValidations.updateSemesterRegistrationValidation,
-  ),
-  semesterRegistrationController.updateSemesterRegistration,
+  SemesterRegistrationController.createSemesterRegistration,
 );
 
-// export router
-export default semesterRegistrationRoute;
+router.get(
+  '/:id',
+  SemesterRegistrationController.getSingleSemesterRegistration,
+);
+
+router.patch(
+  '/:id',
+  validateRequest(
+    SemesterRegistrationValidations.upadateSemesterRegistrationValidationSchema,
+  ),
+  SemesterRegistrationController.updateSemesterRegistration,
+);
+
+
+router.delete(
+  '/:id',
+  SemesterRegistrationController.deleteSemesterRegistration,
+);
+
+router.get('/', SemesterRegistrationController.getAllSemesterRegistrations);
+
+export const semesterRegistrationRoutes = router;

@@ -1,19 +1,25 @@
-import { Router } from 'express';
-import { studentController } from './student.controller';
-import checkValidationSchema from '../../middleware/validetUser';
-import { studentValidationSchema } from './student.validator';
+import express from 'express';
+import auth from '../../middlewares/auth';
+import validateRequest from '../../middlewares/validateRequest';
+import { StudentControllers } from './student.controller';
+import { updateStudentValidationSchema } from './student.validation';
 
-const studentRoute = Router();
+const router = express.Router();
 
-// create a stuent
-studentRoute.post(
-  '/',
-  checkValidationSchema(studentValidationSchema),
-  studentController.createStudent,
+router.get('/', StudentControllers.getAllStudents);
+
+router.get(
+  '/:id',
+  auth('admin', 'faculty'),
+  StudentControllers.getSingleStudent,
 );
 
-// get all student form DB
-studentRoute.get('/', studentController.getAllStudents);
+router.patch(
+  '/:id',
+  validateRequest(updateStudentValidationSchema),
+  StudentControllers.updateStudent,
+);
 
-// export this router
-export default studentRoute;
+router.delete('/:id', StudentControllers.deleteStudent);
+
+export const StudentRoutes = router;

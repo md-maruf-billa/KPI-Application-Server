@@ -1,26 +1,40 @@
-import express from 'express';
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import notFound from './app/middleware/notFound';
-import globalErrorHandler from './app/middleware/globalErrorHandler';
-import manageResponse from './app/utils/response';
-import moduleRoutes from './routes';
-const app = express();
-//middleware
-app.use(express.json());
-app.use(express.raw());
-app.use(cors());
-app.use(moduleRoutes);
+import express, { Application } from 'express';
+import globalErrorHandler from './app/middlewares/globalErrorhandler';
+import notFound from './app/middlewares/notFound';
+import router from './app/routes';
+import sendResponse from './app/utils/sendResponse';
 
-// test route
+const app: Application = express();
+
+//parsers
+app.use(express.json()); // Parses JSON bodies
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+app.use(cors({ origin: ['http://localhost:5173'] }));
+
+// application routes
+app.use(router);
+
+
 app.get('/', (req, res) => {
-  manageResponse(res, {
-    message: 'Server is running successfully!!',
-    data: {},
-  });
+    sendResponse(res,  {
+        statusCode: 200,
+        success: true,
+        message: 'Welcome to the KPI web API',
+        data: null
+    });
 });
-// handel error globally
+
 app.use(globalErrorHandler);
-// handel not found Route
+
+//Not Found
 app.use(notFound);
-// export app for server
+
 export default app;

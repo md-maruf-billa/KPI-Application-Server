@@ -1,6 +1,6 @@
-export const semesterRegistrationStatus = ['UPCOMING', 'ONGOING', 'ENDED'];
+export const SemesterRegistrationStatus = ['UPCOMING', 'ONGOING', 'ENDED'];
 
-export const registrationStatusConst = {
+export const RegistrationStatus = {
   UPCOMING: 'UPCOMING',
   ONGOING: 'ONGOING',
   ENDED: 'ENDED',
